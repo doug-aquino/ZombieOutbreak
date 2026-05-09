@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Outbreak</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="tela-crt">
+
+    <div class="layout-principal">
+        
+        <div class="lado-esquerdo">
+            <h1 class="titulo-arcade">ZOMBIE<br>OUTBREAK</h1>
+            <p class="subtitulo">SISTEMA DE RASTREAMENTO ATIVADO<br>Insira a ficha para posicionar A e B</p>
+
+            <div class="legenda">
+                <div class="item-legenda"><div class="cor-legenda normal"></div> Asfalto (Custo 1)</div>
+                <div class="item-legenda"><div class="cor-legenda sangue"></div> Sangue (Custo 2)</div>
+                <div class="item-legenda"><div class="cor-legenda escombros"></div> Escombros (Custo 3)</div>
+                <div class="item-legenda"><div class="cor-legenda buraco"></div> Cratera (Custo 5)</div>
+                <div class="item-legenda"><div class="cor-legenda zumbi"></div> Horda (Bloqueio)</div>
+            </div>
+
+            <div id="area-jogo">
+                <div id="tabuleiro"></div>
+            </div>
+        </div>
+
+        <div class="lado-direito">
+            <div class="painel-controles">
+                <button class="btn-gerar neon-amarelo" onclick="gerarLabirintoAleatorio()">GERAR ZONA DE RISCO</button>
+                
+                <div class="grupo-controle">
+                    <label>Algoritmo de Fuga:</label>
+                    <select id="selecao-algoritmo" class="caixa-selecao">
+                        <option value="a-estrela">Busca A* (Tatico)</option>
+                        <option value="gulosa">Busca Gulosa (Desespero)</option>
+                    </select>
+                </div>
+
+                <div class="grupo-controle">
+                    <label>Radar Heuristico:</label>
+                    <select id="selecao-heuristica" class="caixa-selecao">
+                        <option value="forte">Forte (Manhattan)</option>
+                        <option value="fraca">Fraca (Euclidiana * 0,3)</option>
+                    </select>
+                </div>
+
+                <div class="grupo-controle">
+                    <label>Velocidade de Rastreio:</label>
+                    <input type="range" id="velocidade" min="1" max="200" value="100">
+                </div>
+
+                <button class="btn-iniciar neon-verde" onclick="iniciarResgate()">INICIAR EXTRACAO</button>
+                <button class="btn-comparar neon-vermelho" onclick="compararAlgoritmos()">ANALISAR ROTAS</button>
+            </div>
+
+            <div id="estatisticas" class="painel-neon">
+                <h3>DADOS DA EXTRACAO</h3>
+                <p>Setores Vasculhados: <span id="texto-nos-expandidos" class="destaque">0</span></p>
+                <p>Nivel de Perigo: <span id="texto-custo-caminho" class="destaque">0</span></p>
+                <p>Tempo de Calculo: <span id="texto-tempo-processamento" class="destaque">0 </span>ms</p>
+                <p id="mensagem-alerta" class="alerta-erro"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="fundo-modal" class="oculto">
+        <div class="janela-modal">
+            <div class="cabecalho-modal">
+                <h2>RELATORIO DE SOBREVIVENCIA</h2>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-fechar" style="background-color: #ffeb3b; color: #000;" onclick="zerarEstatisticas()">ZERAR DADOS</button>
+                    <button class="btn-fechar" onclick="fecharJanelaRelatorio()">X</button>
+                </div>
+            </div>
+            
+            <div class="conteudo-modal">
+                <table id="tabela-comparacao">
+                    <thead>
+                        <tr>
+                            <th>Estrategia</th>
+                            <th>Radar</th>
+                            <th>Perigo</th>
+                            <th>Setores</th>
+                            <th>Tempo(ms)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela-comparacao">
+                    </tbody>
+                </table>
+                
+                <div id="grafico-container">
+                    <canvas id="grafico-comparacao"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

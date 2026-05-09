@@ -1,0 +1,220 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #050d05;
+    color: #4ade80;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.tela-crt::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.layout-principal {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    max-width: 1200px;
+    z-index: 3;
+    position: relative;
+}
+
+.titulo-arcade {
+    color: #ff003c; /* Vermelho sangue neon */
+    text-shadow: 4px 4px 0px #4a0000, 0 0 15px #ff003c;
+    font-size: 28px;
+    margin-bottom: 10px;
+    margin-top: 0;
+    letter-spacing: 2px;
+}
+
+.subtitulo {
+    font-size: 10px;
+    color: #ffeb3b;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.lado-esquerdo { display: flex; flex-direction: column; }
+.lado-direito { display: flex; flex-direction: column; gap: 20px; width: 350px; }
+
+.painel-controles, .painel-neon {
+    background-color: #0a140a;
+    border: 2px solid #1f3d1f;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.05);
+}
+
+.painel-neon {
+    border-color: #ff003c;
+    box-shadow: 0 0 10px rgba(255, 0, 60, 0.3), inset 0 0 15px rgba(255, 0, 60, 0.1);
+}
+
+.painel-neon h3 { margin-top: 0; font-size: 14px; text-align: center; color: #ff003c; }
+.painel-neon p { font-size: 10px; line-height: 2; }
+.destaque { color: #ffeb3b; }
+.alerta-erro { color: #ff003c; text-shadow: 0 0 5px #ff003c; animation: piscar 1s infinite; }
+
+@keyframes piscar {
+    0% { opacity: 1; }
+    50% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+
+.grupo-controle { display: flex; flex-direction: column; gap: 8px; }
+.grupo-controle label { font-size: 10px; color: #3b82f6; }
+
+.caixa-selecao, input[type="range"] {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    padding: 10px;
+    background-color: #000;
+    color: #4ade80;
+    border: 1px solid #4ade80;
+    outline: none;
+    cursor: pointer;
+}
+
+button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    padding: 15px;
+    background-color: transparent;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.neon-amarelo { color: #ffeb3b; border: 2px solid #ffeb3b; text-shadow: 0 0 5px #ffeb3b; }
+.neon-amarelo:hover { background-color: #ffeb3b; color: #000; }
+
+.neon-verde { color: #39ff14; border: 2px solid #39ff14; text-shadow: 0 0 5px #39ff14; box-shadow: 0 0 10px rgba(57, 255, 20, 0.3); }
+.neon-verde:hover { background-color: #39ff14; color: #000; }
+
+.neon-vermelho { color: #ff003c; border: 2px solid #ff003c; text-shadow: 0 0 5px #ff003c; }
+.neon-vermelho:hover { background-color: #ff003c; color: #000; }
+
+.legenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 8px;
+    color: #aaa;
+}
+.item-legenda { display: flex; align-items: center; gap: 5px; }
+.cor-legenda { width: 12px; height: 12px; border: 1px solid #333; }
+
+#tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(30, 20px);
+    grid-template-rows: repeat(30, 20px);
+    gap: 1px;
+    background-color: #000;
+    border: 4px solid #1f3d1f;
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
+    width: fit-content;
+}
+
+.celula { width: 20px; height: 20px; cursor: pointer; box-sizing: border-box; }
+
+.normal { background-color: #0a0a0a; border: 1px solid #111; }
+.sangue { background-color: #4a0000; } 
+.escombros { background-color: #2b2b2b; }
+.buraco { background-color: #000; border: 1px dashed #333; }
+.zumbi { 
+    background-color: #ff003c; 
+    box-shadow: 0 0 8px #ff003c; 
+    animation: pulsoZumbi 2s infinite alternate; 
+}
+
+@keyframes pulsoZumbi {
+    from { transform: scale(0.9); opacity: 0.8; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.ponto-a { background-color: #3b82f6 !important; box-shadow: 0 0 10px #3b82f6; border: 2px solid #fff; } /* Sobrevivente Azul */
+.ponto-b { background-color: #ffeb3b !important; box-shadow: 0 0 15px #ffeb3b; border: 2px solid #fff; } /* Ponto de Extração Dourado */
+.visitado { background-color: rgba(57, 255, 20, 0.15); border: 1px solid rgba(57, 255, 20, 0.3); } /* Rastro do Radar Verde */
+
+.caminho { 
+    background-color: #39ff14 !important; 
+    border: 2px solid #000 !important; 
+    border-radius: 50% !important; 
+    transform: scale(0.7); 
+    box-shadow: 0 0 12px #39ff14; 
+}
+
+#fundo-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#fundo-modal.oculto { display: none; }
+
+.janela-modal {
+    background-color: #0a0a0a;
+    border: 4px solid #ff003c;
+    box-shadow: 0 0 40px rgba(255, 0, 60, 0.5);
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.cabecalho-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed #ff003c;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.cabecalho-modal h2 { color: #ff003c; font-size: 16px; margin: 0; }
+
+.btn-fechar {
+    background-color: #ff003c;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    padding: 8px 12px;
+}
+.btn-fechar:hover { background-color: #cc0030; }
+
+table { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 10px; color: #4ade80; }
+th, td { border: 1px solid #1f3d1f; padding: 12px; text-align: center; }
+th { background-color: #111; color: #ffeb3b; }
+
+#grafico-container {
+    width: 100%;
+    height: 350px;
+    background-color: #050505;
+    padding: 10px;
+    border: 1px solid #1f3d1f;
+}
